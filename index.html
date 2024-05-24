@@ -1,0 +1,248 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Opinie o modułach</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Wypowiedz się</h1>
+    
+   
+    <form id="commentForm">
+        <label for="module">Moduł:</label><br>
+        <select id="module" name="module">
+            <option value="" disabled selected>Wybierz moduł</option>
+            <option value="Kompetencje przyszłości">Kompetencje przyszłości</option>
+            <option value="Moduł ogólny">Moduł ogólny</option>
+            <option value="Tutoring">Tutoring</option>
+            <option value="Tydzień integracyjny">Tydzień integracyjny</option>
+            <option value="Moduł Językowy">Moduł Językowy</option>
+            <option value="Algorytmy i stuktury danych">Algorytmy i stuktury danych</option>
+            <option value="Podstawy programowania">Podstawy programowania</option>
+            <option value="Wprowadzenie do informatyki">Wprowadzenie do informatyki</option>
+            <option value="Inżynieria oprogramowania">Inżynieria oprogramowania</option>
+            <option value="Matematyka dla informatyków">Matematyka dla informatyków</option>
+            <option value="Tworzenie gier">Tworzenie gier</option>
+            <option value="Bazy danych">Bazy danych</option>
+            <option value="Programowanie obiektowe">Programowanie obiektowe</option>
+            <option value="Systemy operacyjne">Systemy operacyjne</option>
+            <option value="Bezpieczeństwo systemów informatycznych">Bezpieczeństwo systemów informatycznych</option>
+            <option value="Sieci komputerowe">Sieci komputerowe</option>
+            <option value="Technologie internetowe">Technologie internetowe</option>
+            <option value="Sztuczna inteligencja">Sztuczna inteligencja</option>
+            <option value="Wprowadzenie do systemów wbudowanych">Wprowadzenie do systemów wbudowanych</option>
+            <option value="Architektura komputerów">Architektura komputerów</option>
+            <option value="IoT i Cloud Computing">IoT i Cloud Computing</option>
+            <option value="Big data">Big data</option>
+            <option value="Dyplomowy projekt zespołowy">Dyplomowy projekt zespołowy</option>
+            <option value="Industry 4.0 & 5.0">Industry 4.0 & 5.0</option>
+        </select><br>
+
+        <label for="subject">Przedmiot:</label><br>
+        <select id="subject" name="subject" disabled>
+            <option value="" disabled selected>Wybierz przedmiot</option>
+        </select><br>
+
+        <label for="name">Nick:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="comment">Komentarz:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50" required></textarea><br>
+        <label for="rating">Ocena (1-5):</label><br>
+        <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+        <input type="submit" value="Dodaj komentarz">
+    </form>
+    
+    <hr>
+    
+  
+    <h2>Inni uważają:</h2>
+    <div id="comments">
+        Wybierz moduł i przedmiot, aby zobaczyć komentarze.
+    </div>
+
+    
+    <script>
+        $(document).ready(function(){
+            const subjects = {
+                "Kompetencje przyszłości": [
+                    "Podstawy kreatywności",
+                    "Warsztat kreatywny",
+                    "Przedsiębiorczość warsztaty - case study",
+                    "Współczesne otoczenie rozwoju przedsiębiorczości (finanse, elementy prawa i podstaw przedsiębiorczości)",
+                    "PBL w praktyce - rozwiązywanie rzeczywistych problemów",
+                    "Człowiek w świecie wielokulturowym (PBL, filozofia, logika, sztuczna inteligencja)"
+                ],
+                "Moduł ogólny": [
+                    "BHP",
+                    "Biblioteka"
+                ],
+                "Tutoring": [
+                    "Tutoring grupowy",
+                    "Tutoring indywidualny"
+                ],
+                "Tydzień integracyjny": [
+                    "Wprowadzenie do studiowania"
+                ],
+                "Moduł Językowy": [
+                    "Język obcy wykłady",
+                    "Język obcy e-learning"
+                ],
+                "Algorytmy i stuktury danych": [
+                    "Algorytmy i struktury danych wykład",
+                    "Algorytmy i struktury danych laboratoria"
+                ],
+                "Podstawy programowania": [
+                    "Matematyczne podstawy programowania",
+                    "Podstawy programowania wykład",
+                    "Podstawy programowania laboratoria"
+                ],
+                "Wprowadzenie do informatyki": [
+                    "Wprowadzenie do informatyki wykład",
+                    "Wprowadzenie do informatyki laboratoria",
+                    "Logika i teoria mnogości"
+                ],
+                "Inżynieria oprogramowania": [
+                    "Inżynieria oprogramowania wykład",
+                    "Inżynieria oprogramowania laboratoria"
+                ],
+                "Matematyka dla informatyków": [
+                    "Analiza matematyczna",
+                    "Algebra liniowa",
+                    "Rachunek prawdopodobieństwa"
+                ],
+                "Tworzenie gier": [
+                    "Grafika gier",
+                    "Projektowanie i programowanie gier"
+                ],
+                "Bazy danych": [
+                    "Systemy baz danych wykład",
+                    "Systemy baz danych laboratoria"
+                ],
+                "Programowanie obiektowe": [
+                    "Programowanie obiektowe wykład",
+                    "Programowanie obiektowe laboratoria"
+                ],
+                "Systemy operacyjne": [
+                    "Systemy operacyjne wykład",
+                    "Systemy operacyjne laboratoria"
+                ],
+                "Bezpieczeństwo systemów informatycznych": [
+                    "Teoria liczb w bezpieczeństwie",
+                    "Bezpieczeństwo systemów informatycznych wykład",
+                    "Bezpieczeństwo systemów operacyjnych laboratoria"
+                ],
+                "Sieci komputerowe": [
+                    "Sieci komputerowe wykład",
+                    "Sieci komputerowe laboratoria"
+                ],
+                "Technologie internetowe": [
+                    "Technologie internetowe",
+                    "UI/UX aplikacji internetowych"
+                ],
+                "Sztuczna inteligencja": [
+                    "Sztuczna inteligencja wykład",
+                    "Sztuczna inteligencja laboratoria"
+                ],
+                "Wprowadzenie do systemów wbudowanych": [
+                    "Podstawy elektroniki",
+                    "Programowalne układy cyfrowe"
+                ],
+                "Architektura komputerów": [
+                    "Architektura komputerów wykład",
+                    "Architektura komputerów laboratoria"
+                ],
+                "IoT i Cloud Computing": [
+                    "IoT i Cloud Computing wykład",
+                    "IoT i Cloud Computing laboratoria"
+                ],
+                "Big data": [
+                    "Big data wykład",
+                    "Big data laboratoria"
+                ],
+                "Dyplomowy projekt zespołowy": [
+                    "Seminarium dyplomowe",
+                    "Dyplomowy projekt zespołowy"
+                ],
+                "Industry 4.0 & 5.0": [
+                    "Industry 4.0 & 5.0 wykład",
+                    "Industry 4.0 & 5.0 laboratoria"
+                ]
+            };
+
+          
+            $('#module').change(function(){
+                var module = $(this).val();
+                var subjectsOptions = '<option value="">Ocena modułu</option>';
+                
+                if (module && subjects[module]) {
+                    subjects[module].forEach(function(subject){
+                        subjectsOptions += '<option value="' + subject + '">' + subject + '</option>';
+                    });
+                    $('#subject').removeAttr('disabled');
+                } else {
+                    $('#subject').attr('disabled', 'disabled');
+                }
+
+                $('#subject').html(subjectsOptions);
+                updateComments();
+            });
+
+          
+            $('#subject').change(function(){
+                updateComments();
+            });
+
+          
+            function updateComments() {
+                var module = $('#module').val();
+                var subject = $('#subject').val();
+                
+                if (module) {
+                    $.ajax({
+                        url: 'get_kom.php',
+                        type: 'GET',
+                        data: {module: module, subject: subject},
+                        success: function(response){
+                            $('#comments').html(response);
+                        }
+                    });
+                } else {
+                    $('#comments').html('Wybierz moduł i przedmiot, aby zobaczyć komentarze.');
+                }
+            }
+
+           
+            $('#commentForm').submit(function(event){
+                event.preventDefault(); 
+              
+                var module = $('#module').val();
+                var name = $('#name').val();
+                var comment = $('#comment').val();
+                var rating = $('#rating').val();
+
+
+              
+                var formData = $(this).serialize();
+
+             
+                $.ajax({
+                    type: 'POST',
+                    url: 'add_kom.php',
+                    data: formData,
+                    success: function(response){
+                        if(response === "success") {
+                            updateComments();
+                            $('#name').val('');
+                            $('#comment').val('');
+                            $('#rating').val('');
+                        } else {
+                           
+                            alert(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
